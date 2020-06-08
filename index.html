@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+</style>
+
+    <script>
+    var config = {
+        type: Phaser.AUTO,
+        width:  1024,
+        height: 577,
+    //    physics: {
+        //    default: 'arcade',
+        //    arcade: {
+          //      gravity: { y: 200 }
+        //    }
+      //  },
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+            //render: render
+        }
+    };
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+
+        this.load.image('bg', 'assets/background.jpg');
+        this.load.image('cold', 'assets/microbes/cold.png');
+        this.load.image('mono', 'assets/microbes/mono.png');
+        this.load.image('herpes', 'assets/microbes/herpes.png');
+        this.load.image('sars', 'assets/microbes/sars.png');
+        this.load.image('measles', 'assets/microbes/measles.png');
+    }
+
+    function create ()
+    {
+    //   this.add.image(512, 289, 'bg');
+
+    this.add.image(0, 0, 'bg').setOrigin(0, 0);
+    //  game.add.sprite(0,0, 'bg');
+
+    var cold = this.add.sprite(100, 300, 'cold').setInteractive();
+    var mono = this.add.sprite(300, 300, 'mono').setInteractive();
+    var herpes = this.add.sprite(500, 300, 'herpes').setInteractive();
+    var sars = this.add.sprite(650, 300, 'sars').setInteractive();
+    var measles = this.add.sprite(850, 300, 'measles').setInteractive();
+
+    this.input.setDraggable([ cold, mono, herpes, sars, measles ]);
+
+    //this.add.text(0, 0, 'Hello World', { font: '"Press Start 2P"' });
+
+    this.add.text(50, 400, 'measles', { fontFamily: '"Press Start 2P"' });
+    this.add.text(250, 400, 'herpes', { fontFamily: '"Press Start 2P"' });
+    this.add.text(450, 400, 'sars', { fontFamily: '"Press Start 2P"' });
+    this.add.text(600, 400, 'mono', { fontFamily: '"Press Start 2P"' });
+    this.add.text(750, 400, 'common cold', { fontFamily: '"Press Start 2P"' });
+
+    this.input.on('gameobjectover', function (pointer, gameObject) {
+
+        gameObject.setTint(0xff0000);
+
+    });
+
+    this.input.on('gameobjectout', function (pointer, gameObject) {
+
+        gameObject.clearTint();
+
+    });
+
+    this.input.on('dragstart', function (pointer, gameObject) {
+
+        gameObject.setTint(0xff0000);
+
+    });
+
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+
+    });
+
+    this.input.on('dragend', function (pointer, gameObject) {
+
+        gameObject.clearTint();
+
+    });
+
+
+    }
+
+    function update ()
+    {
+  
+
+
+    }
+    </script>
+
+</body>
+</html>
