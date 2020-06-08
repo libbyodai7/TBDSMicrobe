@@ -16,21 +16,25 @@
         type: Phaser.AUTO,
         width:  1024,
         height: 577,
-    //    physics: {
-        //    default: 'arcade',
-        //    arcade: {
-          //      gravity: { y: 200 }
-        //    }
-      //  },
+
         scene: {
             preload: preload,
             create: create,
             update: update
-            //render: render
         }
     };
 
     var game = new Phaser.Game(config);
+
+    var graphics;
+
+    var measlesRect;
+    var herpesRect;
+    var sarsRect;
+    var monoRect;
+    var coldRect;
+
+    var rect;
 
     function preload ()
     {
@@ -45,10 +49,18 @@
 
     function create ()
     {
+    graphics = this.add.graphics({ lineStyle: { width: 20, color: 0x0000aa }, fillStyle: { color: 0xaa0000 }});
     //   this.add.image(512, 289, 'bg');
 
     this.add.image(0, 0, 'bg').setOrigin(0, 0);
     //  game.add.sprite(0,0, 'bg');
+
+    measlesRect = new Phaser.Geom.Rectangle(100, 300, 100, 100);
+    herpesRect = new Phaser.Geom.Rectangle();
+    sarsRect = new Phaser.Geom.Rectangle();
+    monoRect = new Phaser.Geom.Rectangle();
+    coldRect = new Phaser.Geom.Rectangle();
+
 
     var cold = this.add.sprite(100, 300, 'cold').setInteractive();
     var mono = this.add.sprite(300, 300, 'mono').setInteractive();
@@ -57,8 +69,10 @@
     var measles = this.add.sprite(850, 300, 'measles').setInteractive();
 
     this.input.setDraggable([ cold, mono, herpes, sars, measles ]);
+    this.input.dragDistanceThreshold = 100;
 
     //this.add.text(0, 0, 'Hello World', { font: '"Press Start 2P"' });
+
 
     this.add.text(50, 400, 'measles', { fontFamily: '"Press Start 2P"' });
     this.add.text(250, 400, 'herpes', { fontFamily: '"Press Start 2P"' });
@@ -97,12 +111,17 @@
 
     });
 
+    rect = new Phaser.Geom.Rectangle(250, 200, 300, 200);
+
 
     }
 
     function update ()
     {
-  
+ graphics.clear();
+graphics.strokeRectShape(measlesRect);
+graphics.strokeRectShape(rect);
+graphics.fillRectShape(rect);
 
 
     }
